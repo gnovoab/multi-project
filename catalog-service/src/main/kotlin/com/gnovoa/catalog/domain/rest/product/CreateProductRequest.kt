@@ -1,4 +1,4 @@
-package com.gnovoa.catalog.domain.rest
+package com.gnovoa.catalog.domain.rest.product
 
 import com.gnovoa.catalog.domain.model.Product
 import javax.validation.constraints.NotNull

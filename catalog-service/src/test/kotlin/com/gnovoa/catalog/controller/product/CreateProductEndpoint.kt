@@ -1,7 +1,7 @@
 package com.gnovoa.catalog.controller.product
 
 import com.gnovoa.catalog.domain.model.Product
-import com.gnovoa.catalog.domain.rest.CreateProductRequest
+import com.gnovoa.catalog.domain.rest.product.CreateProductRequest
 import com.gnovoa.catalog.factory.ObjectFactory
 import org.apache.commons.lang3.RandomStringUtils
 import org.junit.jupiter.api.Assertions

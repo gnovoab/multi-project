@@ -53,6 +53,8 @@ configurations {
 
 dependencies {
 
+    implementation(project(":stock-service"))
+
     //Actuator
     implementation("org.springframework.boot:spring-boot-starter-actuator")
 

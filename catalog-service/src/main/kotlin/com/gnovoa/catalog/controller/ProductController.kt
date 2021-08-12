@@ -3,8 +3,9 @@ package com.gnovoa.catalog.controller
 import com.gnovoa.catalog.domain.api.ApiErrorResponse
 import com.gnovoa.catalog.domain.api.ApiMessageResponse
 import com.gnovoa.catalog.domain.model.Product
-import com.gnovoa.catalog.domain.rest.CreateProductRequest
+import com.gnovoa.catalog.domain.rest.product.CreateProductRequest
 import com.gnovoa.catalog.service.ProductService
+import com.gnovoa.catalog.service.StockService
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.media.ArraySchema
 import io.swagger.v3.oas.annotations.media.Content
@@ -24,7 +25,7 @@ import javax.validation.Valid
 @Tag(name = "PRODUCT", description = "Operations related to Product Catalog")
 @RestController
 @RequestMapping("/api/v1/products")
-class ProductController(private val productService: ProductService) {
+class ProductController(private val productService: ProductService, private val stockService: StockService) {
 
     /**
      * Fetch all products
@@ -166,13 +167,16 @@ class ProductController(private val productService: ProductService) {
         ]
     )
     @PostMapping(produces = [MediaType.APPLICATION_JSON_VALUE])
-    fun createProduct(@RequestBody @Valid request:CreateProductRequest): ResponseEntity<Product> {
+    fun createProduct(@RequestBody @Valid request: CreateProductRequest): ResponseEntity<Product> {
 
         //Create product
-        val product:Product = productService.save(request.product)
+        val productCreated:Product = productService.save(request.product)
+
+        //Update stock
+        stockService.createProductStock(productCreated, request.quantity)
 
         //Return the products
-        return ResponseEntity(product, HttpStatus.CREATED)
+        return ResponseEntity(productCreated, HttpStatus.CREATED)
     }
 
     /**

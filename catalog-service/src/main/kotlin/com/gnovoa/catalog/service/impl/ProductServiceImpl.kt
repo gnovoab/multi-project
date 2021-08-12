@@ -13,7 +13,7 @@ private val LOGGER = KotlinLogging.logger {}
  * Class hat handles operations regarding products
  */
 @Service
-class ProductServiceImpl ( private val productRespository: ProductRepository): ProductService  {
+class ProductServiceImpl (private val productRespository: ProductRepository): ProductService  {
 
     override fun fetchProducts(): Iterable<Product> {
         LOGGER.info { "Fetching active and inactive products..." }
