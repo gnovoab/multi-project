@@ -1,29 +1,15 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 println("${project.name} starting config phase...")
 
 plugins {
+    kotlin("jvm")
+    kotlin("plugin.spring")
     id("org.springframework.boot") version "2.5.3"
     id("io.spring.dependency-management") version "1.0.11.RELEASE"
-    kotlin("jvm") version "1.5.21"
-    kotlin("plugin.spring") version "1.5.21"
     id("io.gitlab.arturbosch.detekt").version("1.18.0-RC3")
     jacoco
 }
 
-group = "com.example"
-java.sourceCompatibility = JavaVersion.VERSION_1_8
-
-tasks.withType<KotlinCompile> {
-    kotlinOptions {
-        freeCompilerArgs = listOf("-Xjsr305=strict")
-        jvmTarget = "1.8"
-    }
-}
-
-repositories {
-    mavenCentral()
-}
 
 //Jar Settings
 tasks.getByName<org.springframework.boot.gradle.tasks.bundling.BootJar>("bootJar") {
